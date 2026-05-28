@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="310" height="86" viewBox="0 0 310 86" role="img" aria-labelledby="title desc">
+  <title id="title">Yankun Metal Products</title>
+  <desc id="desc">Yankun diamond wire mark with company name</desc>
+  <defs>
+    <clipPath id="mark-clip">
+      <polygon points="43 4 82 43 43 82 4 43"/>
+    </clipPath>
+  </defs>
+  <polygon points="43 4 82 43 43 82 4 43" fill="none" stroke="#1f5f9f" stroke-width="5"/>
+  <g clip-path="url(#mark-clip)" fill="none" stroke="#1f5f9f" stroke-width="5" stroke-linecap="square">
+    <path d="M18 65V30L43 5"/>
+    <path d="M30 77V30L55 5"/>
+    <path d="M42 82V30L67 5"/>
+    <path d="M54 70V30L79 5"/>
+    <path d="M9 44h68"/>
+    <path d="M21 56h45"/>
+  </g>
+  <g fill="#151a20">
+    <text x="99" y="37" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800">Yankun Metal</text>
+    <text x="99" y="61" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="600" fill="#4a535c">Wire Products Manufacturer</text>
+  </g>
+</svg>

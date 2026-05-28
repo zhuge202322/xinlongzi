@@ -1,0 +1,20 @@
+.DS_Store
+*.log
+
+# Dependencies and build output
+node_modules/
+.next/
+out/
+
+# Local environment
+.env
+.env.*
+!.env.example
+
+# Local source packages and extraction intermediates
+Yankun Metal Catalog.pdf
+炎坤网站资料包.zip
+pdf_pages/
+pdf_crops/
+pdf_ocr.txt
+screenshots/
