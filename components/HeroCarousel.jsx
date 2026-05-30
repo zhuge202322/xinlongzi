@@ -80,6 +80,8 @@ export default function HeroCarousel({ slides = defaultSlides }) {
             role="tab"
             aria-selected={index === active}
             onClick={() => setActive(index)}
+            onMouseEnter={() => setActive(index)}
+            onFocus={() => setActive(index)}
             key={slide.title}
           >
             <span>{slide.label}</span>

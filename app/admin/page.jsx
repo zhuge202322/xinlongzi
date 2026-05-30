@@ -6,7 +6,7 @@ import { adminCookieName, verifyAdminToken } from "../../lib/admin-auth";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Admin"
+  title: "后台管理"
 };
 
 export default async function AdminPage() {

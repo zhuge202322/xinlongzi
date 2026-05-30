@@ -4,7 +4,7 @@ import { adminCookieName, createAdminToken, validatePassword } from "../../../..
 export async function POST(request) {
   const body = await request.json().catch(() => ({}));
   if (!validatePassword(body.password)) {
-    return NextResponse.json({ error: "Invalid password" }, { status: 401 });
+    return NextResponse.json({ error: "密码不正确" }, { status: 401 });
   }
 
   const response = NextResponse.json({ ok: true });

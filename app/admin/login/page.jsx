@@ -2,7 +2,7 @@ import LoginForm from "../../../components/admin/LoginForm";
 import { getSiteMediaValue } from "../../../lib/catalog";
 
 export const metadata = {
-  title: "Admin Login"
+  title: "后台登录"
 };
 
 export default function AdminLoginPage() {

@@ -3,71 +3,111 @@
 import { useEffect, useMemo, useState } from "react";
 
 const tabs = [
-  { id: "siteMedia", label: "Page Images" },
-  { id: "heroSlides", label: "Hero Carousel" },
-  { id: "products", label: "Products" },
-  { id: "categories", label: "Categories" },
-  { id: "posts", label: "Articles" },
-  { id: "mediaLibrary", label: "Media Library" }
+  { id: "siteMedia", label: "页面图片" },
+  { id: "heroSlides", label: "首页轮播" },
+  { id: "products", label: "产品管理" },
+  { id: "categories", label: "分类管理" },
+  { id: "posts", label: "文章管理" },
+  { id: "mediaLibrary", label: "媒体库" }
 ];
 
 const fieldConfig = {
   products: [
-    ["model", "Model"],
-    ["display_name", "Display name"],
-    ["category_slug", "Category", "category"],
-    ["dimensions", "Dimensions"],
-    ["weight", "Weight"],
-    ["source_page", "PDF source"],
-    ["image", "Product image", "image"],
-    ["short_description", "Short description", "textarea"],
-    ["description", "Description", "textarea"],
-    ["sort_order", "Sort order", "number"],
-    ["featured", "Featured", "checkbox"]
+    ["model", "产品型号"],
+    ["display_name", "产品名称"],
+    ["category_slug", "所属分类", "category"],
+    ["dimensions", "尺寸参数"],
+    ["weight", "产品重量"],
+    ["source_page", "PDF来源页"],
+    ["image", "产品主图", "image"],
+    ["short_description", "简短描述", "textarea"],
+    ["description", "详情描述", "textarea"],
+    ["sort_order", "排序值", "number"],
+    ["featured", "推荐产品", "checkbox"]
   ],
   categories: [
-    ["slug", "Slug"],
-    ["sort_order", "Sort order", "number"],
-    ["catalog_no", "Catalog no."],
-    ["name", "Name"],
-    ["cn_name", "Chinese name"],
-    ["short_name", "Short name"],
-    ["model_range", "Model range"],
-    ["summary", "Summary", "textarea"],
-    ["buyer_scenario", "Buyer scenario", "textarea"],
-    ["rfq_focus", "RFQ focus", "textarea"],
-    ["image", "Category image", "image"],
-    ["representative_model", "Representative model"]
+    ["slug", "分类标识"],
+    ["sort_order", "排序值", "number"],
+    ["catalog_no", "目录编号"],
+    ["name", "分类名称"],
+    ["cn_name", "中文名称"],
+    ["short_name", "分类简称"],
+    ["model_range", "型号范围"],
+    ["summary", "分类简介", "textarea"],
+    ["buyer_scenario", "买家场景", "textarea"],
+    ["rfq_focus", "询盘重点", "textarea"],
+    ["image", "分类图片", "image"],
+    ["representative_model", "代表型号"]
   ],
   posts: [
-    ["slug", "Slug"],
-    ["title", "Title"],
-    ["category", "Article category"],
-    ["excerpt", "Excerpt", "textarea"],
-    ["featured_image", "Featured image", "image"],
-    ["date", "Date"],
-    ["content", "Content HTML", "textarea-large"],
-    ["sort_order", "Sort order", "number"],
-    ["published", "Published", "checkbox"]
+    ["slug", "文章标识"],
+    ["title", "文章标题"],
+    ["category", "文章分类"],
+    ["excerpt", "摘要", "textarea"],
+    ["featured_image", "封面图片", "image"],
+    ["date", "发布日期"],
+    ["content", "正文HTML", "textarea-large"],
+    ["sort_order", "排序值", "number"],
+    ["published", "发布状态", "checkbox"]
   ],
   heroSlides: [
-    ["sort_order", "Sort order", "number"],
-    ["label", "Small label"],
-    ["title", "Slide title"],
-    ["text", "Slide copy", "textarea"],
-    ["href", "Link"],
-    ["image", "Slide image", "image"],
-    ["alt", "Image alt text"],
-    ["active", "Active", "checkbox"]
+    ["sort_order", "排序值", "number"],
+    ["label", "小标签"],
+    ["title", "轮播标题"],
+    ["text", "轮播文案", "textarea"],
+    ["href", "跳转链接"],
+    ["image", "轮播图片", "image"],
+    ["alt", "图片说明"],
+    ["active", "启用", "checkbox"]
   ],
   siteMedia: [
-    ["group_name", "Group"],
-    ["label", "Label"],
-    ["kind", "Kind"],
-    ["src", "Current URL", "image"],
-    ["default_src", "Default URL", "readonly"],
-    ["sort_order", "Sort order", "number"]
+    ["group_name", "分组"],
+    ["label", "名称"],
+    ["kind", "类型"],
+    ["src", "当前文件地址", "image"],
+    ["default_src", "默认文件地址", "readonly"],
+    ["sort_order", "排序值", "number"]
   ]
+};
+
+const mediaGroupLabels = {
+  About: "关于页面",
+  Certificates: "证书",
+  Exhibitions: "展会",
+  Factory: "工厂",
+  Global: "全站",
+  Home: "首页",
+  "Page hero": "页面首屏",
+  Resources: "资料下载"
+};
+
+const mediaLabels = {
+  about_exhibition_image: "关于页展会图片",
+  about_page_hero: "关于页首屏图",
+  article_detail_hero: "文章详情首屏图",
+  articles_page_hero: "文章列表首屏图",
+  catalog_pdf: "下载目录PDF",
+  certificate_bset: "BSET ISO证书",
+  certificate_yankun: "Yankun ISO证书",
+  gallery_canton: "广交会展位图",
+  gallery_hangzhou: "杭州五金展图片",
+  gallery_shanghai: "上海百货展图片",
+  gallery_shenzhen: "深圳跨境电商展图片",
+  gallery_yiwu: "义乌工厂展图片",
+  home_contact_background: "首页联系区背景图",
+  home_quick_catalog: "首页目录入口图片",
+  home_quick_factory: "首页工厂入口图片",
+  home_quick_products: "首页产品入口图片",
+  inquiry_page_hero: "询盘页首屏图",
+  powder_coating_line: "喷塑线图片",
+  products_page_hero: "产品页首屏图",
+  raw_material_area: "原材料区图片",
+  semi_finished_area: "半成品区图片",
+  site_logo: "网站Logo",
+  welding_workshop: "焊接车间图片",
+  wire_forming_workshop: "铁线成型车间图片",
+  workflow_poster: "生产流程视频封面",
+  workflow_video: "生产流程视频"
 };
 
 function blankFor(tab, content) {
@@ -123,12 +163,12 @@ function blankFor(tab, content) {
 }
 
 function titleFor(tab, item) {
-  if (!item) return "New item";
-  if (tab === "products") return `${item.model || "Product"} ${item.display_name || ""}`;
+  if (!item) return "新建内容";
+  if (tab === "products") return `${item.model || "产品"} ${item.display_name || ""}`;
   if (tab === "categories") return item.name || item.slug;
   if (tab === "posts") return item.title || item.slug;
   if (tab === "heroSlides") return item.title || item.label;
-  if (tab === "siteMedia") return `${item.group_name}: ${item.label}`;
+  if (tab === "siteMedia") return `${mediaGroupLabels[item.group_name] || item.group_name}: ${mediaLabels[item.media_key] || item.label}`;
   return item.src || item.id;
 }
 
@@ -191,17 +231,17 @@ export default function AdminDashboard() {
     const payload = await response.json();
     setBusy(false);
     if (!response.ok) {
-      setStatus(payload.error || "Save failed");
+      setStatus(payload.error || "保存失败");
       return;
     }
     setContent(payload.content);
     setDraft(payload.item);
     setSelectedId(payload.item?.id || null);
-    setStatus("Saved.");
+    setStatus("已保存");
   }
 
   async function remove() {
-    if (!draft?.id || !confirm("Delete this item?")) return;
+    if (!draft?.id || !confirm("确定删除这条内容吗？")) return;
     setBusy(true);
     const response = await fetch("/api/admin/content", {
       method: "DELETE",
@@ -211,14 +251,14 @@ export default function AdminDashboard() {
     const payload = await response.json();
     setBusy(false);
     if (!response.ok) {
-      setStatus(payload.error || "Delete failed");
+      setStatus(payload.error || "删除失败");
       return;
     }
     setContent(payload.content);
     const first = payload.content[tab]?.[0] || null;
     setDraft(first);
     setSelectedId(first?.id || null);
-    setStatus("Deleted.");
+    setStatus("已删除");
   }
 
   async function upload(key, file) {
@@ -230,7 +270,7 @@ export default function AdminDashboard() {
     const payload = await response.json();
     setBusy(false);
     if (!response.ok) {
-      setStatus(payload.error || "Upload failed");
+      setStatus(payload.error || "上传失败");
       return;
     }
     if (key !== "unused") update(key, payload.url);
@@ -240,7 +280,7 @@ export default function AdminDashboard() {
         mediaLibrary: [payload.media, ...(current?.mediaLibrary || []).filter((item) => item.src !== payload.media.src)]
       }));
     }
-    setStatus(`Uploaded ${payload.url}`);
+    setStatus(`已上传：${payload.url}`);
   }
 
   async function logout() {
@@ -251,7 +291,7 @@ export default function AdminDashboard() {
   if (!content) {
     return (
       <main className="admin-shell">
-        <p className="admin-loading">Loading CMS...</p>
+        <p className="admin-loading">正在加载后台数据...</p>
       </main>
     );
   }
@@ -265,7 +305,7 @@ export default function AdminDashboard() {
     <main className="admin-shell">
       <aside className="admin-sidebar">
         <img src={logo} alt="Yankun Metal Products logo" />
-        <strong>Yankun CMS</strong>
+        <strong>网站后台</strong>
         <nav>
           {tabs.map((item) => (
             <button className={tab === item.id ? "active" : ""} type="button" onClick={() => select(item.id)} key={item.id}>
@@ -274,32 +314,32 @@ export default function AdminDashboard() {
             </button>
           ))}
         </nav>
-        <a href="/" target="_blank">Open website</a>
-        <button type="button" onClick={logout}>Logout</button>
+        <a href="/" target="_blank">打开网站</a>
+        <button type="button" onClick={logout}>退出登录</button>
       </aside>
 
       <section className="admin-workspace">
         <header className="admin-topbar">
           <div>
-            <span>Admin Dashboard</span>
+            <span>后台管理</span>
             <h1>{tabs.find((item) => item.id === tab)?.label}</h1>
           </div>
           <div className="admin-actions">
             {canCreate ? (
               <button type="button" onClick={() => { setDraft(blankFor(tab, content)); setSelectedId(null); }}>
-                New
+                新建
               </button>
             ) : null}
-            {canDelete ? <button type="button" className="danger" onClick={remove}>Delete</button> : null}
-            {tab !== "mediaLibrary" ? <button type="button" onClick={save} disabled={busy || !draft}>Save</button> : null}
+            {canDelete ? <button type="button" className="danger" onClick={remove}>删除</button> : null}
+            {tab !== "mediaLibrary" ? <button type="button" onClick={save} disabled={busy || !draft}>{busy ? "处理中..." : "保存"}</button> : null}
           </div>
         </header>
 
-        {status ? <p className={`admin-status ${status.includes("failed") || status.includes("required") ? "error" : ""}`}>{status}</p> : null}
+        {status ? <p className={`admin-status ${status.includes("失败") || status.includes("错误") || status.includes("必须") || status.includes("请") ? "error" : ""}`}>{status}</p> : null}
 
         <div className="admin-grid">
           <div className="admin-list">
-            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search current panel" />
+            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="搜索当前栏目" />
             <div>
               {filtered.map((item) => (
                 <button
@@ -322,7 +362,7 @@ export default function AdminDashboard() {
               <>
                 <div className="admin-editor-head">
                   <h2>{titleFor(tab, draft)}</h2>
-                  <p>Changes save to SQLite and are read by the public website immediately on the next request.</p>
+                  <p>修改会保存到 SQLite 数据库，前台页面下次访问时会立即读取最新内容。</p>
                 </div>
                 {fields.map(([key, label, type]) => (
                   <Field
@@ -339,7 +379,7 @@ export default function AdminDashboard() {
                 ))}
               </>
             ) : (
-              <p className="admin-empty">No item selected.</p>
+              <p className="admin-empty">请选择一条内容进行编辑。</p>
             )}
           </div>
         </div>
@@ -393,7 +433,7 @@ function Field({ fieldKey, label, type, value, kind, categories, onChange, onUpl
           isVideo ? (
             <video src={value} muted controls />
           ) : isFile ? (
-            <a className="admin-file-preview" href={value} target="_blank">Open file</a>
+            <a className="admin-file-preview" href={value} target="_blank">打开文件</a>
           ) : (
             <img src={value} alt={label} />
           )
@@ -429,17 +469,17 @@ function MediaPanel({ media, upload }) {
   return (
     <>
       <div className="admin-editor-head">
-        <h2>Media Library</h2>
-        <p>Upload images, PDFs or videos, then copy the returned URL into any image field.</p>
+        <h2>媒体库</h2>
+        <p>上传图片、PDF 或视频后，可以把生成的文件地址复制到任意图片/文件字段中。</p>
       </div>
       <label className="admin-field">
-        <span>Upload new media</span>
+        <span>上传新媒体</span>
         <input type="file" accept="image/*,video/*,application/pdf" onChange={(event) => upload("unused", event.target.files?.[0])} />
       </label>
       <div className="admin-media-grid">
         {media.map((item) => (
           <article key={item.id}>
-            {item.kind === "video" ? <video src={item.src} muted controls /> : item.kind === "image" ? <img src={item.src} alt={item.alt} /> : <div>FILE</div>}
+            {item.kind === "video" ? <video src={item.src} muted controls /> : item.kind === "image" ? <img src={item.src} alt={item.alt} /> : <div>文件</div>}
             <strong>{item.alt || item.src}</strong>
             <code>{item.src}</code>
           </article>

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import AddToInquiryCart from "../../../components/AddToInquiryCart";
 import { getProduct, getRelatedProducts, getSiteMediaValue, sourceLabel } from "../../../lib/catalog";
 
 export const dynamic = "force-dynamic";
@@ -53,6 +54,17 @@ export default async function ProductDetailPage({ params }) {
             <Link className="button-dark" href={`/inquiry?product=${product.model}`}>
               Request Quote
             </Link>
+            <AddToInquiryCart
+              product={{
+                model: product.model,
+                display_name: product.display_name,
+                category_name: product.category_name,
+                dimensions: product.dimensions,
+                weight: product.weight,
+                image: product.image,
+                source_page: product.source_page
+              }}
+            />
             <a className="button-light" href={catalogHref} download>
               Download Catalog
             </a>

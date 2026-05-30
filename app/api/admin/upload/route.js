@@ -11,13 +11,13 @@ function requireAdmin(request) {
 
 export async function POST(request) {
   if (!requireAdmin(request)) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ error: "登录已失效，请重新登录" }, { status: 401 });
   }
 
   const form = await request.formData();
   const file = form.get("file");
   if (!file || typeof file === "string") {
-    return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
+    return NextResponse.json({ error: "请选择要上传的文件" }, { status: 400 });
   }
 
   const buffer = Buffer.from(await file.arrayBuffer());

@@ -13,7 +13,7 @@ import {
 } from "../../../../lib/cms-admin";
 
 function unauthorized() {
-  return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  return NextResponse.json({ error: "登录已失效，请重新登录" }, { status: 401 });
 }
 
 function requireAdmin(request) {
@@ -27,14 +27,14 @@ function saveResource(resource, data) {
   if (resource === "posts") return savePost(data);
   if (resource === "heroSlides") return saveHeroSlide(data);
   if (resource === "siteMedia") return saveSiteMedia(data);
-  throw new Error("Unknown resource");
+  throw new Error("未知的数据类型");
 }
 
 function deleteResource(resource, id) {
   if (resource === "products") return deleteProduct(id);
   if (resource === "posts") return deletePost(id);
   if (resource === "heroSlides") return deleteHeroSlide(id);
-  throw new Error("Delete is not supported for this resource");
+  throw new Error("当前数据类型不支持删除");
 }
 
 export async function GET(request) {
@@ -49,7 +49,7 @@ export async function POST(request) {
     const saved = saveResource(body.resource, body.data || {});
     return NextResponse.json({ ok: true, item: saved, content: getAdminContent() });
   } catch (error) {
-    return NextResponse.json({ error: error.message || "Save failed" }, { status: 400 });
+    return NextResponse.json({ error: error.message || "保存失败" }, { status: 400 });
   }
 }
 
@@ -60,7 +60,7 @@ export async function PATCH(request) {
     const saved = saveResource(body.resource, body.data || {});
     return NextResponse.json({ ok: true, item: saved, content: getAdminContent() });
   } catch (error) {
-    return NextResponse.json({ error: error.message || "Save failed" }, { status: 400 });
+    return NextResponse.json({ error: error.message || "保存失败" }, { status: 400 });
   }
 }
 
@@ -71,6 +71,6 @@ export async function DELETE(request) {
     deleteResource(body.resource, body.id);
     return NextResponse.json({ ok: true, content: getAdminContent() });
   } catch (error) {
-    return NextResponse.json({ error: error.message || "Delete failed" }, { status: 400 });
+    return NextResponse.json({ error: error.message || "删除失败" }, { status: 400 });
   }
 }

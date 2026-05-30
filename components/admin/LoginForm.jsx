@@ -18,7 +18,7 @@ export default function LoginForm({ logo = "/assets/yankun-logo.svg" }) {
     });
     setBusy(false);
     if (!response.ok) {
-      setError("Password is incorrect.");
+      setError("密码不正确，请重新输入。");
       return;
     }
     window.location.href = "/admin";
@@ -28,21 +28,21 @@ export default function LoginForm({ logo = "/assets/yankun-logo.svg" }) {
     <main className="admin-login">
       <form className="admin-login-card" onSubmit={submit}>
         <img src={logo} alt="Yankun Metal Products logo" />
-        <h1>Yankun CMS Admin</h1>
-        <p>Manage products, articles, homepage carousel and page section media.</p>
+        <h1>网站后台管理</h1>
+        <p>管理产品、分类、文章、首页轮播、页面图片和媒体文件。</p>
         <label>
-          Admin password
+          后台密码
           <input
             autoFocus
             type="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            placeholder="Default: admin123"
+            placeholder="默认：admin123"
           />
         </label>
         {error ? <span className="admin-error">{error}</span> : null}
         <button type="submit" disabled={busy}>
-          {busy ? "Signing in..." : "Sign in"}
+          {busy ? "正在登录..." : "登录"}
         </button>
       </form>
     </main>
