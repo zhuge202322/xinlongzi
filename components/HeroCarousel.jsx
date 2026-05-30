@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const slides = [
+const defaultSlides = [
   {
     href: "/about#exhibitions",
     image: "/assets/gallery/shenzhen-cross-border.jpg",
@@ -46,18 +46,21 @@ const slides = [
   }
 ];
 
-export default function HeroCarousel() {
+export default function HeroCarousel({ slides = defaultSlides }) {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
+    if (!slides.length) return undefined;
     const timer = window.setInterval(() => setActive((index) => (index + 1) % slides.length), 7000);
     return () => window.clearInterval(timer);
-  }, []);
+  }, [slides.length]);
+
+  const items = slides.length ? slides : defaultSlides;
 
   return (
     <section id="banner" className="hero-carousel" aria-label="Featured Yankun programs">
       <div className="piclink_pic" id="container">
-        {slides.map((slide, index) => (
+        {items.map((slide, index) => (
           <Link className={index === active ? "active" : ""} href={slide.href} aria-label={slide.title} key={slide.title}>
             <img src={slide.image} alt={slide.alt} />
           </Link>
@@ -70,7 +73,7 @@ export default function HeroCarousel() {
       </div>
 
       <div className="piclink_text" role="tablist" aria-label="Hero slides">
-        {slides.map((slide, index) => (
+        {items.map((slide, index) => (
           <button
             className={index === active ? "active" : ""}
             type="button"

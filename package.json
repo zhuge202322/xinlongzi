@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "seed:db": "python3 scripts/seed-sqlite.py"
+    "seed:db": "python3 scripts/seed-sqlite.py && python3 scripts/sync-cms.py",
+    "sync:cms": "python3 scripts/sync-cms.py"
   },
   "dependencies": {
     "better-sqlite3": "^12.10.0",

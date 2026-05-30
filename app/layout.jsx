@@ -1,7 +1,8 @@
 import "./globals.css";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import SiteEffects from "../components/SiteEffects";
+import SiteShell from "../components/SiteShell";
+import { getSiteMediaValue } from "../lib/catalog";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: {
@@ -13,13 +14,15 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const logo = getSiteMediaValue("site_logo", "/assets/yankun-logo.svg");
+  const catalogHref = getSiteMediaValue("catalog_pdf", "/assets/downloads/yankun-metal-catalog.pdf");
+
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <body>
-        <Header />
-        {children}
-        <Footer />
-        <SiteEffects />
+        <SiteShell logo={logo} catalogHref={catalogHref}>
+          {children}
+        </SiteShell>
       </body>
     </html>
   );

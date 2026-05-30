@@ -1,10 +1,10 @@
 import Link from "next/link";
 
-export default function Footer() {
+export default function Footer({ logo = "/assets/yankun-logo.svg", catalogHref = "/assets/downloads/yankun-metal-catalog.pdf" }) {
   return (
     <footer className="site-footer">
       <div>
-        <img src="/assets/yankun-logo.svg" alt="Yankun Metal Products logo" />
+        <img src={logo} alt="Yankun Metal Products logo" />
         <p>Wire metal products manufacturer for global B2B buyers.</p>
       </div>
       <div>
@@ -20,7 +20,9 @@ export default function Footer() {
         <strong>Factory</strong>
         <Link href="/about#factory">Manufacturing workflow</Link>
         <Link href="/about#quality">Quality control</Link>
-        <Link href="/inquiry#resources">Download catalog</Link>
+        <a href={catalogHref} download>
+          Download catalog
+        </a>
       </div>
       <div>
         <strong>Contact</strong>

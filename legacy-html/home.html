@@ -2,19 +2,19 @@
       <section id="banner" class="hero-carousel" aria-label="Featured Yankun programs">
         <div class="piclink_pic" id="container">
           <a class="active" href="about.html#factory" aria-label="Powder coating line">
-            <img src="assets/factory/powder-coating-line.jpg" alt="Powder coating line for wire metal products">
+            <img src="{{media:powder_coating_line}}" alt="Powder coating line for wire metal products">
           </a>
           <a href="products.html" aria-label="Wire storage baskets">
-            <img src="assets/products/storage-baskets.jpg" alt="Stacked wire storage baskets in production">
+            <img src="{{media:home_quick_products}}" alt="Stacked wire storage baskets in production">
           </a>
           <a href="about.html#exhibitions" aria-label="Canton Fair booth">
-            <img src="assets/gallery/canton-fair-booth.jpg" alt="Yankun booth at Canton Fair">
+            <img src="{{media:gallery_canton}}" alt="Yankun booth at Canton Fair">
           </a>
           <a href="products.html" aria-label="Catalog bathroom shelf program">
-            <img src="assets/products/catalog-cover.png" alt="Yankun catalog cover with bathroom shelf products">
+            <img src="{{media:home_quick_catalog}}" alt="Yankun catalog cover with bathroom shelf products">
           </a>
           <a href="about.html#factory" aria-label="Wire forming workshop">
-            <img src="assets/factory/wire-forming-workshop.jpg" alt="Wire forming workshop for metal racks">
+            <img src="{{media:workflow_poster}}" alt="Wire forming workshop for metal racks">
           </a>
         </div>
 
@@ -73,15 +73,15 @@
 
       <section class="quick-entry" aria-label="Buyer entry points">
         <a class="entry-tile" href="products.html">
-          <img src="assets/products/storage-baskets.jpg" alt="Wire baskets stacked in factory">
+          <img src="{{media:home_quick_products}}" alt="Wire baskets stacked in factory">
           <span>New wire basket programs</span>
         </a>
         <a class="entry-tile" href="about.html#factory">
-          <img src="assets/factory/raw-material-area.jpg" alt="Raw wire material area">
+          <img src="{{media:home_quick_factory}}" alt="Raw wire material area">
           <span>Factory capability tour</span>
         </a>
         <a class="entry-tile" href="inquiry.html#resources">
-          <img src="assets/products/catalog-cover.png" alt="Yankun product catalog cover">
+          <img src="{{media:home_quick_catalog}}" alt="Yankun product catalog cover">
           <span>Catalog and private label pack</span>
         </a>
       </section>
@@ -188,7 +188,7 @@
 
       <section class="section factory-section" id="factory">
         <div class="factory-media reveal">
-          <video src="assets/factory/factory-tour.mp4" poster="assets/factory/wire-forming-workshop.jpg" muted loop playsinline controls></video>
+          <video src="{{media:workflow_video}}" poster="{{media:workflow_poster}}" muted loop playsinline controls></video>
         </div>
         <div class="factory-content reveal">
           <div class="section-label">Manufacturing Workflow</div>
@@ -258,12 +258,12 @@
           </div>
 
           <div class="certificate-wall reveal">
-            <button type="button" data-lightbox="assets/certificates/iso9001-yankun-2025.jpg">
-              <img src="assets/certificates/iso9001-yankun-2025.jpg" alt="ISO9001 certificate for Yankun">
+            <button type="button" data-lightbox="{{media:certificate_yankun}}">
+              <img src="{{media:certificate_yankun}}" alt="ISO9001 certificate for Yankun">
               <span>ISO9001 Yankun 2025</span>
             </button>
-            <button type="button" data-lightbox="assets/certificates/iso9001-bset-home-2025.jpg">
-              <img src="assets/certificates/iso9001-bset-home-2025.jpg" alt="ISO9001 certificate for BSET Home">
+            <button type="button" data-lightbox="{{media:certificate_bset}}">
+              <img src="{{media:certificate_bset}}" alt="ISO9001 certificate for BSET Home">
               <span>ISO9001 BSET Home 2025</span>
             </button>
           </div>
@@ -315,10 +315,10 @@
           </div>
 
           <div class="gallery-grid reveal">
-            <img src="assets/gallery/canton-fair-booth.jpg" alt="Canton Fair Yankun booth">
-            <img src="assets/gallery/shanghai-household-fair.jpg" alt="Shanghai Household Fair booth">
-            <img src="assets/gallery/shenzhen-cross-border.jpg" alt="Shenzhen Cross-Border E-commerce Expo">
-            <img src="assets/gallery/hangzhou-hardware.jpg" alt="Hangzhou Hardware Fair booth">
+            <img src="{{media:gallery_canton}}" alt="Canton Fair Yankun booth">
+            <img src="{{media:gallery_shanghai}}" alt="Shanghai Household Fair booth">
+            <img src="{{media:gallery_shenzhen}}" alt="Shenzhen Cross-Border E-commerce Expo">
+            <img src="{{media:gallery_hangzhou}}" alt="Hangzhou Hardware Fair booth">
           </div>
         </div>
       </section>
@@ -336,7 +336,7 @@
         </div>
 
         <div class="resource-grid">
-          <a class="resource-item reveal" href="assets/downloads/yankun-metal-catalog.pdf" download>
+          <a class="resource-item reveal" href="{{media:catalog_pdf}}" download>
             <span>PDF Catalog</span>
             <strong>Yankun Metal Catalog 2025</strong>
             <p>PDF series from YK-001 to YK-258: bathroom shelf, storage basket, home storage shelf, kitchen storage basket, pet products and mesh rack.</p>
@@ -354,7 +354,7 @@
         </div>
       </section>
 
-      <section class="contact-section" id="contact">
+      <section class="contact-section" id="contact" style="--contact-image: url('{{media:home_contact_background}}')">
         <div class="contact-copy reveal">
           <div class="section-label">Contact Yankun</div>
           <h2>Send a clear product requirement and get the factory conversation started.</h2>

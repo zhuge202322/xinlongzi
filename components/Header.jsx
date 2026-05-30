@@ -12,7 +12,7 @@ const navItems = [
   { href: "/inquiry", label: "Inquiry", match: "/inquiry" }
 ];
 
-export default function Header() {
+export default function Header({ logo = "/assets/yankun-logo.svg" }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -40,7 +40,7 @@ export default function Header() {
   return (
     <header className={`site-header ${scrolled ? "is-scrolled" : ""}`} data-header>
       <Link className="brand" href="/" aria-label="Yankun home" onClick={() => setOpen(false)}>
-        <img src="/assets/yankun-logo.svg" alt="Yankun Metal Products logo" />
+        <img src={logo} alt="Yankun Metal Products logo" />
       </Link>
 
       <button

@@ -1,15 +1,18 @@
 import HeroCarousel from "../components/HeroCarousel";
 import ProductLineCards from "../components/ProductLineCards";
-import { getCategories } from "../lib/catalog";
+import { getCategories, getHeroSlides } from "../lib/catalog";
 import { homeMainParts } from "../lib/legacy";
+
+export const dynamic = "force-dynamic";
 
 export default function HomePage() {
   const categories = getCategories();
+  const slides = getHeroSlides();
   const { before, after } = homeMainParts();
 
   return (
     <main id="top">
-      <HeroCarousel />
+      <HeroCarousel slides={slides} />
       <div dangerouslySetInnerHTML={{ __html: before }} />
       <section className="section product-section" id="products">
         <div className="section-head reveal">

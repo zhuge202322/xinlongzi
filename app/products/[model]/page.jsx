@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getProduct, getRelatedProducts, sourceLabel } from "../../../lib/catalog";
+import { getProduct, getRelatedProducts, getSiteMediaValue, sourceLabel } from "../../../lib/catalog";
+
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }) {
   const routeParams = await params;
@@ -19,6 +21,7 @@ export default async function ProductDetailPage({ params }) {
   if (!product) notFound();
 
   const related = getRelatedProducts(product.model, product.category_slug, 4);
+  const catalogHref = getSiteMediaValue("catalog_pdf", "/assets/downloads/yankun-metal-catalog.pdf");
 
   return (
     <main>
@@ -50,7 +53,7 @@ export default async function ProductDetailPage({ params }) {
             <Link className="button-dark" href={`/inquiry?product=${product.model}`}>
               Request Quote
             </Link>
-            <a className="button-light" href="/assets/downloads/yankun-metal-catalog.pdf" download>
+            <a className="button-light" href={catalogHref} download>
               Download Catalog
             </a>
           </div>

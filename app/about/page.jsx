@@ -5,6 +5,8 @@ export const metadata = {
   description: "Learn about Ningbo Yankun Metal Products factory workflow, quality controls and export sourcing support."
 };
 
+export const dynamic = "force-dynamic";
+
 export default function AboutPage() {
   return <main dangerouslySetInnerHTML={{ __html: legacyMain("about") }} />;
 }

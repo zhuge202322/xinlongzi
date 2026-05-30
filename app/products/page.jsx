@@ -1,6 +1,6 @@
 import ProductCatalog from "../../components/ProductCatalog";
 import ProductLineCards from "../../components/ProductLineCards";
-import { getCatalogStats, getCategories, getProducts } from "../../lib/catalog";
+import { getCatalogStats, getCategories, getProducts, getSiteMediaValue } from "../../lib/catalog";
 
 export const metadata = {
   title: "Products",
@@ -8,17 +8,20 @@ export const metadata = {
     "Browse Yankun bathroom shelves, storage baskets, home storage shelves, kitchen racks, pet cages and mesh rack product lines from the SQLite product catalog."
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function ProductsPage({ searchParams }) {
   const params = await searchParams;
   const categories = getCategories();
   const products = getProducts("all");
   const stats = getCatalogStats();
+  const heroImage = getSiteMediaValue("products_page_hero", "/assets/gallery/canton-fair-booth.jpg");
   const requestedCategory = params?.category || "all";
   const initialCategory = categories.some((category) => category.slug === requestedCategory) ? requestedCategory : "all";
 
   return (
     <main>
-      <section className="page-hero" style={{ "--hero-image": "url('/assets/gallery/canton-fair-booth.jpg')" }}>
+      <section className="page-hero" style={{ "--hero-image": `url('${heroImage}')` }}>
         <div>
           <nav className="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Home</a>

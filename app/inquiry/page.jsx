@@ -1,18 +1,22 @@
-import { getCategories, getProduct } from "../../lib/catalog";
+import { getCategories, getProduct, getSiteMediaValue } from "../../lib/catalog";
 
 export const metadata = {
   title: "Inquiry",
   description: "Send a structured RFQ to Yankun for wire storage baskets, shelves, kitchen racks, pet cages and mesh rack products."
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function InquiryPage({ searchParams }) {
   const params = await searchParams;
   const categories = getCategories();
   const selectedProduct = params?.product ? getProduct(params.product) : null;
+  const heroImage = getSiteMediaValue("inquiry_page_hero", "/assets/factory/raw-material-area.jpg");
+  const catalogHref = getSiteMediaValue("catalog_pdf", "/assets/downloads/yankun-metal-catalog.pdf");
 
   return (
     <main>
-      <section className="page-hero" style={{ "--hero-image": "url('/assets/factory/raw-material-area.jpg')" }}>
+      <section className="page-hero" style={{ "--hero-image": `url('${heroImage}')` }}>
         <div>
           <nav className="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Home</a>
@@ -120,7 +124,7 @@ export default async function InquiryPage({ searchParams }) {
                 <strong>Market</strong> Destination country and any retailer or platform requirements.
               </li>
             </ul>
-            <a href="/assets/downloads/yankun-metal-catalog.pdf" download>
+            <a href={catalogHref} download>
               Download catalog first
             </a>
           </aside>
@@ -136,7 +140,7 @@ export default async function InquiryPage({ searchParams }) {
           <p>Use these resources to align product category, factory capability and expected buying process before contacting Yankun.</p>
         </div>
         <div className="resource-grid">
-          <a className="resource-item reveal" href="/assets/downloads/yankun-metal-catalog.pdf" download>
+          <a className="resource-item reveal" href={catalogHref} download>
             <span>PDF Catalog</span>
             <strong>Yankun Metal Catalog 2025</strong>
             <p>Six product lines covering bathroom, storage, home, kitchen, pet and mesh rack products.</p>
