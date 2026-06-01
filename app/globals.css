@@ -1032,6 +1032,11 @@ button {
 .exhibition-carousel {
   position: relative;
   min-width: 0;
+  overflow: hidden;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(22, 128, 110, 0.12);
+  border-radius: 8px;
 }
 
 .carousel-actions {
@@ -1057,22 +1062,19 @@ button {
 }
 
 .exhibition-track {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(270px, 46%);
+  display: flex;
+  width: max-content;
   gap: 14px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-}
-
-.exhibition-track::-webkit-scrollbar {
-  display: none;
+  animation: exhibitionMarquee 48s linear infinite;
 }
 
 .exhibition-track button {
-  scroll-snap-align: start;
+  width: clamp(270px, 29vw, 440px);
   min-height: 430px;
+}
+
+.exhibition-carousel:hover .exhibition-track {
+  animation-play-state: paused;
 }
 
 .exhibition-track img {
@@ -1081,6 +1083,16 @@ button {
   height: 100%;
   min-height: 430px;
   object-fit: cover;
+}
+
+@keyframes exhibitionMarquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 7px));
+  }
 }
 
 .resources-section {
@@ -2783,8 +2795,8 @@ a.resource-item:hover {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  .exhibition-track {
-    grid-auto-columns: minmax(260px, 64%);
+  .exhibition-track button {
+    width: clamp(260px, 48vw, 380px);
   }
 
   .article-grid,
@@ -3024,18 +3036,13 @@ a.resource-item:hover {
     width: 240px;
   }
 
-  .exhibition-track {
-    grid-auto-columns: 82%;
-  }
-
   .exhibition-track button,
   .exhibition-track img {
     min-height: 300px;
   }
 
-  .carousel-actions {
-    right: 10px;
-    top: 10px;
+  .exhibition-track button {
+    width: min(82vw, 340px);
   }
 
   .gallery-grid {
