@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import AddToInquiryCart from "../../../components/AddToInquiryCart";
-import { getProduct, getRelatedProducts, getSiteMediaValue, sourceLabel } from "../../../lib/catalog";
+import { formatCopy, getProduct, getRelatedProducts, getSectionCopy, getSiteMediaValue, sourceLabel } from "../../../lib/catalog";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +23,21 @@ export default async function ProductDetailPage({ params }) {
 
   const related = getRelatedProducts(product.model, product.category_slug, 4);
   const catalogHref = getSiteMediaValue("catalog_pdf", "/assets/downloads/yankun-metal-catalog.pdf");
+  const copyValues = {
+    model: product.model,
+    display_name: product.display_name,
+    model_range: product.model_range,
+    category_name: product.category_name,
+    dimensions: product.dimensions,
+    weight: product.weight,
+    source_page: sourceLabel(product.source_page)
+  };
+  const heroCopy = getSectionCopy("product_detail_hero");
+  const positioningCopy = getSectionCopy("product_detail_positioning");
+  const customizationCopy = getSectionCopy("product_detail_customization");
+  const qualityCopy = getSectionCopy("product_detail_quality");
+  const relatedCopy = getSectionCopy("product_detail_related");
+  const ctaCopy = getSectionCopy("product_detail_cta");
 
   return (
     <main>
@@ -38,12 +53,9 @@ export default async function ProductDetailPage({ params }) {
             <span>/</span>
             <span>{product.model}</span>
           </nav>
-          <div className="section-label">SQLite Catalog Product</div>
-          <h1>{product.display_name}</h1>
-          <p>
-            {product.model} is a real model from the Yankun Metal PDF catalog under {product.category_name}. Extracted catalog
-            data: {product.dimensions}, {product.weight}, {sourceLabel(product.source_page)}.
-          </p>
+          <div className="section-label">{formatCopy(heroCopy.eyebrow, copyValues)}</div>
+          <h1>{formatCopy(heroCopy.title, copyValues)}</h1>
+          <p>{formatCopy(heroCopy.intro, copyValues)}</p>
           <div className="pill-row" aria-label="Product tags">
             <span>{product.category_name}</span>
             <span>{product.model_range}</span>
@@ -75,12 +87,9 @@ export default async function ProductDetailPage({ params }) {
       <section className="section">
         <div className="detail-grid">
           <div className="reveal">
-            <div className="section-label">Product Positioning</div>
-            <h2>{product.category_name} model data prepared for importer comparison.</h2>
-            <p>
-              {product.model} belongs to {product.model_range}. Buyers can compare the PDF dimensions and weight against target
-              retail use, then confirm finish, packaging, carton data and MOQ with the factory.
-            </p>
+            <div className="section-label">{positioningCopy.eyebrow}</div>
+            <h2>{formatCopy(positioningCopy.title, copyValues)}</h2>
+            <p>{formatCopy(positioningCopy.intro, copyValues)}</p>
             <ul className="feature-list">
               <li>
                 <strong>Exact catalog reference</strong>
@@ -138,13 +147,10 @@ export default async function ProductDetailPage({ params }) {
       <section className="section intro-section">
         <div className="section-head reveal">
           <div>
-            <div className="section-label">Customization Menu</div>
-            <h2>Define the product by usage, not only by size.</h2>
+            <div className="section-label">{customizationCopy.eyebrow}</div>
+            <h2>{formatCopy(customizationCopy.title, copyValues)}</h2>
           </div>
-          <p>
-            The best RFQs include target use, expected retail price band, package style and compliance concerns. That allows the
-            factory to balance material, finish and carton cost.
-          </p>
+          <p>{formatCopy(customizationCopy.intro, copyValues)}</p>
         </div>
         <div className="package-flow">
           <article className="reveal">
@@ -173,8 +179,9 @@ export default async function ProductDetailPage({ params }) {
       <section className="section">
         <div className="two-column-section">
           <div className="reveal">
-            <div className="section-label">Quality Control Points</div>
-            <h2>Inspection focuses on the details that affect buyer returns.</h2>
+            <div className="section-label">{qualityCopy.eyebrow}</div>
+            <h2>{formatCopy(qualityCopy.title, copyValues)}</h2>
+            <p>{formatCopy(qualityCopy.intro, copyValues)}</p>
             <ul className="check-list">
               <li>
                 <strong>Dimension consistency</strong> Frame size, base flatness and stacking fit are checked against the approved
@@ -208,13 +215,10 @@ export default async function ProductDetailPage({ params }) {
       <section className="section intro-section">
         <div className="section-head reveal">
           <div>
-            <div className="section-label">Related PDF Models</div>
-            <h2>Continue comparing nearby models from the same catalog series.</h2>
+            <div className="section-label">{relatedCopy.eyebrow}</div>
+            <h2>{formatCopy(relatedCopy.title, copyValues)}</h2>
           </div>
-          <p>
-            These related products are pulled from the same SQLite category, so buyers can compare dimensions and weight before
-            asking for a sample set.
-          </p>
+          <p>{formatCopy(relatedCopy.intro, copyValues)}</p>
         </div>
         <div className="catalog-related">
           {related.map((item) => (
@@ -236,8 +240,8 @@ export default async function ProductDetailPage({ params }) {
 
       <section className="cta-band">
         <div>
-          <h2>Ready to quote {product.model}?</h2>
-          <p>Send target quantity, finish, packaging preference and destination market for factory review.</p>
+          <h2>{formatCopy(ctaCopy.title, copyValues)}</h2>
+          <p>{formatCopy(ctaCopy.intro, copyValues)}</p>
         </div>
         <Link className="button-light" href={`/inquiry?product=${product.model}`}>
           Start Inquiry

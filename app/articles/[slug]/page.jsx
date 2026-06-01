@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getPost, getPosts, getSiteMediaValue } from "../../../lib/catalog";
+import { getPost, getPosts, getSectionCopy, getSiteMediaValue } from "../../../lib/catalog";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +23,8 @@ export default async function ArticleDetailPage({ params }) {
   const related = getPosts().filter((item) => item.slug !== post.slug).slice(0, 3);
   const heroImage = post.featured_image || getSiteMediaValue("article_detail_hero", "/assets/products/storage-baskets.jpg");
   const catalogHref = getSiteMediaValue("catalog_pdf", "/assets/downloads/yankun-metal-catalog.pdf");
+  const relatedCopy = getSectionCopy("article_detail_related");
+  const ctaCopy = getSectionCopy("article_detail_cta");
 
   return (
     <main>
@@ -64,10 +66,10 @@ export default async function ArticleDetailPage({ params }) {
       <section className="section intro-section">
         <div className="section-head reveal">
           <div>
-            <div className="section-label">Related Topics</div>
-            <h2>Continue preparing your sourcing brief.</h2>
+            <div className="section-label">{relatedCopy.eyebrow}</div>
+            <h2>{relatedCopy.title}</h2>
           </div>
-          <p>These article cards are pulled from the same SQLite CMS table used by the admin backend.</p>
+          <p>{relatedCopy.intro}</p>
         </div>
         <div className="resource-grid">
           {related.map((item) => (
@@ -82,8 +84,8 @@ export default async function ArticleDetailPage({ params }) {
 
       <section className="cta-band">
         <div>
-          <h2>Have a basket project ready for quotation?</h2>
-          <p>Send photos, quantity, finish and packaging plan to start a practical factory discussion.</p>
+          <h2>{ctaCopy.title}</h2>
+          <p>{ctaCopy.intro}</p>
         </div>
         <Link className="button-light" href="/inquiry">
           Prepare RFQ

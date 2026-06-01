@@ -1,9 +1,9 @@
 import Link from "next/link";
 import CartPageClient from "../../components/CartPageClient";
-import { getSiteMediaValue } from "../../lib/catalog";
+import { getSectionCopy, getSiteMediaValue } from "../../lib/catalog";
 
 export const metadata = {
-  title: "Inquiry Cart",
+  title: "Multi-Product RFQ Form",
   description: "Review selected Yankun metal wire products and prepare one batch inquiry."
 };
 
@@ -11,6 +11,9 @@ export const dynamic = "force-dynamic";
 
 export default function CartPage() {
   const heroImage = getSiteMediaValue("products_page_hero", "/assets/gallery/canton-fair-booth.jpg");
+  const heroCopy = getSectionCopy("cart_hero");
+  const emptyCopy = getSectionCopy("cart_empty");
+  const selectedCopy = getSectionCopy("cart_selected");
 
   return (
     <main>
@@ -19,21 +22,18 @@ export default function CartPage() {
           <nav className="breadcrumb" aria-label="Breadcrumb">
             <Link href="/">Home</Link>
             <span>/</span>
-            <span>Inquiry Cart</span>
+            <span>Multi-Product RFQ</span>
           </nav>
-          <h1>Build a multi-product RFQ before contacting the factory.</h1>
-          <p>
-            Add several catalog models, confirm target quantities and prepare a single structured email inquiry for faster
-            quotation feedback.
-          </p>
+          <h1>{heroCopy.title}</h1>
+          <p>{heroCopy.intro}</p>
         </div>
         <div className="page-hero-card">
           <span>Batch inquiry</span>
           <strong>Designed for B2B buyers comparing multiple SKUs, finishes and packaging plans.</strong>
-          <p>The inquiry cart stays in this browser while buyers continue browsing product detail pages.</p>
+          <p>The selected product list stays in this browser while buyers continue browsing product detail pages.</p>
         </div>
       </section>
-      <CartPageClient />
+      <CartPageClient emptyCopy={emptyCopy} selectedCopy={selectedCopy} />
     </main>
   );
 }

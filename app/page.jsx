@@ -1,6 +1,6 @@
 import HeroCarousel from "../components/HeroCarousel";
 import ProductLineCards from "../components/ProductLineCards";
-import { getCategories, getHeroSlides } from "../lib/catalog";
+import { getCategories, getHeroSlides, getSectionCopy } from "../lib/catalog";
 import { homeMainParts } from "../lib/legacy";
 
 export const dynamic = "force-dynamic";
@@ -8,6 +8,7 @@ export const dynamic = "force-dynamic";
 export default function HomePage() {
   const categories = getCategories();
   const slides = getHeroSlides();
+  const productsCopy = getSectionCopy("home_products");
   const { before, after } = homeMainParts();
 
   return (
@@ -17,13 +18,10 @@ export default function HomePage() {
       <section className="section product-section" id="products">
         <div className="section-head reveal">
           <div>
-            <div className="section-label">Product Lines</div>
-            <h2>Six PDF catalog categories for household, pet and outdoor ranges.</h2>
+            <div className="section-label">{productsCopy.eyebrow}</div>
+            <h2>{productsCopy.title}</h2>
           </div>
-          <p>
-            Each series links to a database-backed category product list with real model images, dimensions, product weight and PDF
-            source page for B2B sourcing.
-          </p>
+          <p>{productsCopy.intro}</p>
         </div>
         <ProductLineCards categories={categories} />
       </section>

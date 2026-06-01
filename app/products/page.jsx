@@ -1,6 +1,6 @@
 import ProductCatalog from "../../components/ProductCatalog";
 import ProductLineCards from "../../components/ProductLineCards";
-import { getCatalogStats, getCategories, getProducts, getSiteMediaValue } from "../../lib/catalog";
+import { getCatalogStats, getCategories, getProducts, getSectionCopy, getSiteMediaValue } from "../../lib/catalog";
 
 export const metadata = {
   title: "Products",
@@ -16,6 +16,11 @@ export default async function ProductsPage({ searchParams }) {
   const products = getProducts("all");
   const stats = getCatalogStats();
   const heroImage = getSiteMediaValue("products_page_hero", "/assets/gallery/canton-fair-booth.jpg");
+  const heroCopy = getSectionCopy("products_hero");
+  const directoryCopy = getSectionCopy("products_directory");
+  const catalogCopy = getSectionCopy("products_catalog");
+  const modelIndexCopy = getSectionCopy("products_model_index");
+  const ctaCopy = getSectionCopy("products_cta");
   const requestedCategory = params?.category || "all";
   const initialCategory = categories.some((category) => category.slug === requestedCategory) ? requestedCategory : "all";
 
@@ -28,11 +33,8 @@ export default async function ProductsPage({ searchParams }) {
             <span>/</span>
             <span>Products</span>
           </nav>
-          <h1>Wire metal product lines for repeatable B2B sourcing.</h1>
-          <p>
-            Browse Yankun&apos;s six PDF catalog categories, compare buyer-fit details and open model-level product cards before
-            sending a structured inquiry.
-          </p>
+          <h1>{heroCopy.title}</h1>
+          <p>{heroCopy.intro}</p>
         </div>
         <div className="page-hero-card">
           <span>Factory direct range</span>
@@ -61,25 +63,28 @@ export default async function ProductsPage({ searchParams }) {
       <section className="section product-section">
         <div className="section-head reveal">
           <div>
-            <div className="section-label">Product Directory</div>
-            <h2>Choose a category, then browse that category as product cards.</h2>
+            <div className="section-label">{directoryCopy.eyebrow}</div>
+            <h2>{directoryCopy.title}</h2>
           </div>
-          <p>
-            Category cards jump directly to the matching product list. Each product card uses the SQLite database and PDF-derived
-            product imagery.
-          </p>
+          <p>{directoryCopy.intro}</p>
         </div>
         <ProductLineCards categories={categories} activeCategory={initialCategory} />
       </section>
 
       <section className="section intro-section" id="category-products">
-        <ProductCatalog categories={categories} products={products} initialCategory={initialCategory} />
+        <ProductCatalog
+          categories={categories}
+          products={products}
+          initialCategory={initialCategory}
+          sectionCopy={catalogCopy}
+          modelIndexCopy={modelIndexCopy}
+        />
       </section>
 
       <section className="cta-band">
         <div>
-          <h2>Need a product sheet with dimensions and cartons?</h2>
-          <p>Send target market, quantity and finish preference. Yankun will align samples, pricing and packaging options.</p>
+          <h2>{ctaCopy.title}</h2>
+          <p>{ctaCopy.intro}</p>
         </div>
         <a className="button-light" href="/inquiry">
           Start Inquiry

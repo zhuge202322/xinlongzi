@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 const tabs = [
+  { id: "sectionContent", label: "页面文案" },
   { id: "siteMedia", label: "页面图片" },
   { id: "heroSlides", label: "首页轮播" },
   { id: "products", label: "产品管理" },
@@ -67,6 +68,17 @@ const fieldConfig = {
     ["src", "当前文件地址", "image"],
     ["default_src", "默认文件地址", "readonly"],
     ["sort_order", "排序值", "number"]
+  ],
+  sectionContent: [
+    ["page_name", "所属页面"],
+    ["section_name", "板块名称"],
+    ["content_key", "文案标识", "readonly"],
+    ["eyebrow", "小标签"],
+    ["title", "标题", "textarea"],
+    ["intro", "介绍", "textarea"],
+    ["default_title", "默认标题", "readonly-textarea"],
+    ["default_intro", "默认介绍", "readonly-textarea"],
+    ["sort_order", "排序值", "number"]
   ]
 };
 
@@ -78,6 +90,7 @@ const mediaGroupLabels = {
   Global: "全站",
   Home: "首页",
   "Page hero": "页面首屏",
+  Quality: "质量与合规",
   Resources: "资料下载"
 };
 
@@ -94,6 +107,14 @@ const mediaLabels = {
   gallery_shanghai: "上海百货展图片",
   gallery_shenzhen: "深圳跨境电商展图片",
   gallery_yiwu: "义乌工厂展图片",
+  exhibition_carousel_1: "展会轮播图1",
+  exhibition_carousel_2: "展会轮播图2",
+  exhibition_carousel_3: "展会轮播图3",
+  exhibition_carousel_4: "展会轮播图4",
+  exhibition_carousel_5: "展会轮播图5",
+  exhibition_carousel_6: "展会轮播图6",
+  exhibition_carousel_7: "展会轮播图7",
+  exhibition_carousel_8: "展会轮播图8",
   home_contact_background: "首页联系区背景图",
   home_quick_catalog: "首页目录入口图片",
   home_quick_factory: "首页工厂入口图片",
@@ -101,6 +122,12 @@ const mediaLabels = {
   inquiry_page_hero: "询盘页首屏图",
   powder_coating_line: "喷塑线图片",
   products_page_hero: "产品页首屏图",
+  quality_compliance_1: "质量合规轮播图1",
+  quality_compliance_2: "质量合规轮播图2",
+  quality_compliance_3: "质量合规轮播图3",
+  quality_compliance_4: "质量合规轮播图4",
+  quality_compliance_5: "质量合规轮播图5",
+  quality_compliance_6: "质量合规轮播图6",
   raw_material_area: "原材料区图片",
   semi_finished_area: "半成品区图片",
   site_logo: "网站Logo",
@@ -169,12 +196,13 @@ function titleFor(tab, item) {
   if (tab === "posts") return item.title || item.slug;
   if (tab === "heroSlides") return item.title || item.label;
   if (tab === "siteMedia") return `${mediaGroupLabels[item.group_name] || item.group_name}: ${mediaLabels[item.media_key] || item.label}`;
+  if (tab === "sectionContent") return `${item.page_name || "页面"}: ${item.section_name || item.content_key}`;
   return item.src || item.id;
 }
 
 export default function AdminDashboard() {
   const [content, setContent] = useState(null);
-  const [tab, setTab] = useState("siteMedia");
+  const [tab, setTab] = useState("sectionContent");
   const [selectedId, setSelectedId] = useState(null);
   const [draft, setDraft] = useState(null);
   const [query, setQuery] = useState("");
@@ -394,6 +422,14 @@ function Field({ fieldKey, label, type, value, kind, categories, onChange, onUpl
       <label className="admin-field">
         <span>{label}</span>
         <input value={value || ""} readOnly />
+      </label>
+    );
+  }
+  if (type === "readonly-textarea") {
+    return (
+      <label className="admin-field">
+        <span>{label}</span>
+        <textarea value={value || ""} readOnly />
       </label>
     );
   }

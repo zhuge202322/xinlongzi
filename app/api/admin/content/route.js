@@ -9,6 +9,7 @@ import {
   saveHeroSlide,
   savePost,
   saveProduct,
+  saveSectionContent,
   saveSiteMedia
 } from "../../../../lib/cms-admin";
 
@@ -27,6 +28,7 @@ function saveResource(resource, data) {
   if (resource === "posts") return savePost(data);
   if (resource === "heroSlides") return saveHeroSlide(data);
   if (resource === "siteMedia") return saveSiteMedia(data);
+  if (resource === "sectionContent") return saveSectionContent(data);
   throw new Error("未知的数据类型");
 }
 

@@ -49,12 +49,46 @@ export default function SiteEffects() {
 
     const processButtons = Array.from(document.querySelectorAll("[data-process]"));
     const processCopy = document.querySelector("[data-process-copy]");
+    const processMedia = document.querySelector("[data-process-media]");
+    const renderProcessMedia = (button) => {
+      if (!processMedia) return;
+      const src = button.dataset.processMediaSrc || "";
+      if (!src) return;
+
+      if (button.dataset.processMediaKind === "image") {
+        const image = document.createElement("img");
+        image.src = src;
+        image.alt = `${button.textContent.trim()} manufacturing workflow`;
+        processMedia.replaceChildren(image);
+        return;
+      }
+
+      const video = document.createElement("video");
+      video.src = src;
+      if (button.dataset.processMediaPoster) video.poster = button.dataset.processMediaPoster;
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.controls = true;
+      processMedia.replaceChildren(video);
+    };
     const onProcessClick = (event) => {
       processButtons.forEach((item) => item.classList.remove("active"));
       event.currentTarget.classList.add("active");
       if (processCopy) processCopy.textContent = event.currentTarget.dataset.process || "";
+      renderProcessMedia(event.currentTarget);
     };
     processButtons.forEach((button) => button.addEventListener("click", onProcessClick));
+
+    const carouselControls = Array.from(document.querySelectorAll("[data-carousel-control]"));
+    const onCarouselClick = (event) => {
+      const target = event.currentTarget.dataset.carouselTarget;
+      const track = document.querySelector(`[data-carousel-track="${target}"]`);
+      if (!track) return;
+      const direction = event.currentTarget.dataset.carouselControl === "prev" ? -1 : 1;
+      track.scrollBy({ left: direction * track.clientWidth * 0.82, behavior: "smooth" });
+    };
+    carouselControls.forEach((button) => button.addEventListener("click", onCarouselClick));
 
     const briefInputs = Array.from(document.querySelectorAll("[data-brief]"));
     const briefOutput = document.querySelector("[data-brief-output]");
@@ -103,6 +137,7 @@ export default function SiteEffects() {
       observer?.disconnect();
       lightboxButtons.forEach((button) => button.removeEventListener("click", onLightboxClick));
       processButtons.forEach((button) => button.removeEventListener("click", onProcessClick));
+      carouselControls.forEach((button) => button.removeEventListener("click", onCarouselClick));
       briefInputs.forEach((input) => input.removeEventListener("change", updateBrief));
       forms.forEach((form) => form.removeEventListener("submit", onFormSubmit));
     };

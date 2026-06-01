@@ -1,4 +1,4 @@
-import { getCategories, getProduct, getSiteMediaValue } from "../../lib/catalog";
+import { getCategories, getProduct, getSectionCopy, getSiteMediaValue } from "../../lib/catalog";
 
 export const metadata = {
   title: "Inquiry",
@@ -13,6 +13,9 @@ export default async function InquiryPage({ searchParams }) {
   const selectedProduct = params?.product ? getProduct(params.product) : null;
   const heroImage = getSiteMediaValue("inquiry_page_hero", "/assets/factory/raw-material-area.jpg");
   const catalogHref = getSiteMediaValue("catalog_pdf", "/assets/downloads/yankun-metal-catalog.pdf");
+  const heroCopy = getSectionCopy("inquiry_hero");
+  const resourcesCopy = getSectionCopy("inquiry_resources");
+  const nextStepsCopy = getSectionCopy("inquiry_next_steps");
 
   return (
     <main>
@@ -23,11 +26,8 @@ export default async function InquiryPage({ searchParams }) {
             <span>/</span>
             <span>Inquiry</span>
           </nav>
-          <h1>Send a product requirement that a factory can quote clearly.</h1>
-          <p>
-            Include target product, quantity, finish, packaging and destination market. Yankun will use the details to align sample
-            review, pricing and production timeline.
-          </p>
+          <h1>{heroCopy.title}</h1>
+          <p>{heroCopy.intro}</p>
         </div>
         <div className="page-hero-card">
           <span>Direct contact</span>
@@ -64,7 +64,7 @@ export default async function InquiryPage({ searchParams }) {
                     {category.name} ({category.model_range})
                   </option>
                 ))}
-                <option value="Custom wire product">Custom wire product</option>
+                <option value="Other / custom product">Other / custom product</option>
               </select>
             </label>
             <label>
@@ -134,10 +134,10 @@ export default async function InquiryPage({ searchParams }) {
       <section className="section resources-section" id="resources">
         <div className="section-head reveal">
           <div>
-            <div className="section-label">Buyer Resources</div>
-            <h2>Documents and context that help before the first quote.</h2>
+            <div className="section-label">{resourcesCopy.eyebrow}</div>
+            <h2>{resourcesCopy.title}</h2>
           </div>
-          <p>Use these resources to align product category, factory capability and expected buying process before contacting Yankun.</p>
+          <p>{resourcesCopy.intro}</p>
         </div>
         <div className="resource-grid">
           <a className="resource-item reveal" href={catalogHref} download>
@@ -161,10 +161,10 @@ export default async function InquiryPage({ searchParams }) {
       <section className="section intro-section">
         <div className="section-head reveal">
           <div>
-            <div className="section-label">What Happens Next</div>
-            <h2>A practical path from inquiry to shipment.</h2>
+            <div className="section-label">{nextStepsCopy.eyebrow}</div>
+            <h2>{nextStepsCopy.title}</h2>
           </div>
-          <p>Yankun&apos;s communication path is designed for B2B buyers who need clarity on price, sample timeline and export readiness.</p>
+          <p>{nextStepsCopy.intro}</p>
         </div>
         <div className="package-flow">
           <article className="reveal">

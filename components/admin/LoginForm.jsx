@@ -29,7 +29,7 @@ export default function LoginForm({ logo = "/assets/yankun-logo.svg" }) {
       <form className="admin-login-card" onSubmit={submit}>
         <img src={logo} alt="Yankun Metal Products logo" />
         <h1>网站后台管理</h1>
-        <p>管理产品、分类、文章、首页轮播、页面图片和媒体文件。</p>
+        <p>管理页面文案、产品、分类、文章、首页轮播、页面图片和媒体文件。</p>
         <label>
           后台密码
           <input

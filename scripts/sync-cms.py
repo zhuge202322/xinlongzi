@@ -56,7 +56,7 @@ HERO_SLIDES = [
 
 
 SITE_MEDIA = [
-    ("site_logo", "Site logo", "/assets/yankun-logo.svg", "image", "Global", 1),
+    ("site_logo", "Site logo", "/assets/yankun-logo-new.png", "image", "Global", 1),
     ("products_page_hero", "Products page hero", "/assets/gallery/canton-fair-booth.jpg", "image", "Page hero", 10),
     ("inquiry_page_hero", "Inquiry page hero", "/assets/factory/raw-material-area.jpg", "image", "Page hero", 11),
     ("articles_page_hero", "Articles page hero", "/assets/gallery/shenzhen-cross-border.jpg", "image", "Page hero", 12),
@@ -79,9 +79,70 @@ SITE_MEDIA = [
     ("gallery_shenzhen", "Shenzhen Cross-Border Expo image", "/assets/gallery/shenzhen-cross-border.jpg", "image", "Exhibitions", 42),
     ("gallery_hangzhou", "Hangzhou Hardware Fair image", "/assets/gallery/hangzhou-hardware.jpg", "image", "Exhibitions", 43),
     ("gallery_yiwu", "Yiwu Factory Expo image", "/assets/gallery/yiwu-factory-expo.jpg", "image", "Exhibitions", 44),
+    ("exhibition_carousel_1", "Exhibition carousel image 1", "/assets/gallery/canton-fair-booth.jpg", "image", "Exhibitions", 45),
+    ("exhibition_carousel_2", "Exhibition carousel image 2", "/assets/gallery/shanghai-household-fair.jpg", "image", "Exhibitions", 46),
+    ("exhibition_carousel_3", "Exhibition carousel image 3", "/assets/gallery/shenzhen-cross-border.jpg", "image", "Exhibitions", 47),
+    ("exhibition_carousel_4", "Exhibition carousel image 4", "/assets/gallery/hangzhou-hardware.jpg", "image", "Exhibitions", 48),
+    ("exhibition_carousel_5", "Exhibition carousel image 5", "/assets/gallery/yiwu-factory-expo.jpg", "image", "Exhibitions", 49),
+    ("exhibition_carousel_6", "Exhibition carousel image 6", "/assets/gallery/canton-fair-booth.jpg", "image", "Exhibitions", 50),
+    ("exhibition_carousel_7", "Exhibition carousel image 7", "/assets/gallery/shanghai-household-fair.jpg", "image", "Exhibitions", 51),
+    ("exhibition_carousel_8", "Exhibition carousel image 8", "/assets/gallery/shenzhen-cross-border.jpg", "image", "Exhibitions", 52),
     ("certificate_yankun", "Yankun ISO certificate", "/assets/certificates/iso9001-yankun-2025.jpg", "image", "Certificates", 50),
     ("certificate_bset", "BSET ISO certificate", "/assets/certificates/iso9001-bset-home-2025.jpg", "image", "Certificates", 51),
+    ("quality_compliance_1", "Quality carousel image 1", "/assets/certificates/iso9001-yankun-2025.jpg", "image", "Quality", 55),
+    ("quality_compliance_2", "Quality carousel image 2", "/assets/certificates/iso9001-bset-home-2025.jpg", "image", "Quality", 56),
+    ("quality_compliance_3", "Quality carousel image 3", "/assets/factory/raw-material-area.jpg", "image", "Quality", 57),
+    ("quality_compliance_4", "Quality carousel image 4", "/assets/factory/welding-workshop.jpg", "image", "Quality", 58),
+    ("quality_compliance_5", "Quality carousel image 5", "/assets/factory/powder-coating-line.jpg", "image", "Quality", 59),
+    ("quality_compliance_6", "Quality carousel image 6", "/assets/factory/semi-finished-area.jpg", "image", "Quality", 60),
     ("catalog_pdf", "Downloadable PDF catalog", "/assets/downloads/yankun-metal-catalog.pdf", "file", "Resources", 60),
+]
+
+SECTION_CONTENT = [
+    ("home_intro", "首页", "首页介绍", "What Yankun Builds", "Wire metal storage systems engineered for B2B volume programs.", "Yankun supplies importers, wholesalers, cross-border sellers and retail private labels with wire mesh products that move cleanly from sample approval to batch production.", 10),
+    ("home_products", "首页", "产品线", "Product Lines", "Six PDF catalog categories for household, pet and outdoor ranges.", "Each series links to a database-backed category product list with real model images, dimensions, product weight and PDF source page for B2B sourcing.", 20),
+    ("home_odm", "首页", "OEM/ODM", "OEM and ODM Desk", "Build your wire product program before sample tooling starts.", "Yankun supports catalog selection, small structure adjustments, surface treatment planning and packaging discussion for importers and private labels.", 30),
+    ("home_factory", "首页", "生产流程", "Manufacturing Workflow", "From raw wire to finished export cartons under one factory rhythm.", "Yankun's workflow is designed for repeatable B2B production: controlled material intake, wire forming, welding, coating, assembly and export packing.", 40),
+    ("home_quality", "首页", "质量合规", "Quality and Compliance", "Inspection logic built for overseas buyers, not only factory output.", "Quality work focuses on batch consistency, coating reliability, product safety, package integrity and buyer documents.", 50),
+    ("home_exhibitions", "首页", "展会足迹", "Exhibition Footprint", "Visible to domestic, export and cross-border buyer channels.", "Yankun keeps product samples visible through regional manufacturing shows, household goods fairs, cross-border channels and Canton Fair buyer meetings.", 60),
+    ("home_resources", "首页", "买家资料", "Buyer Resources", "Materials your purchasing team can use before the first call.", "Download the catalog, shortlist product lines and send a structured inquiry with target quantity, finish, packaging and market details.", 70),
+    ("home_contact", "首页", "联系询盘", "Contact Yankun", "Send a clear product requirement and get the factory conversation started.", "The more specific the first message is, the faster the team can align model, finish, MOQ, package and sample timing.", 80),
+
+    ("about_hero", "About", "首屏", "", "A Yuyao wire metal factory built around practical export work.", "Ningbo Yankun Metal Products focuses on metal wire shelves, baskets, kitchen racks, pet products and mesh products for importers, wholesalers and private-label buyers.", 110),
+    ("about_story", "About", "公司故事", "Company Story", "Small enough to respond, structured enough to support repeat orders.", "Yankun focuses on wire metal products that need hands-on factory control: shelves, baskets, kitchen racks, pet cages and outdoor mesh products.", 120),
+    ("about_workflow", "About", "工厂流程", "Factory Workflow", "Production is organized around material, forming, welding, coating, assembly and packing.", "Buyers can discuss the workflow early so product structure, finishing choice and packaging plan are aligned before mass production starts.", 130),
+    ("about_photos", "About", "工厂照片", "Factory Photos", "Real workshop scenes from raw wire to surface-treated components.", "The site uses actual project materials and factory photos so buyers can inspect the production environment instead of only reading capability claims.", 140),
+    ("about_quality", "About", "质量体系", "Quality System", "Inspection work follows the concerns of overseas buyers.", "Yankun's quality work focuses on approved samples, repeatable batch checks, finish quality, packaging strength and shipment documentation.", 150),
+    ("about_exhibitions", "About", "展会", "Exhibitions", "Trade show activity gives buyers a direct sample-review path.", "Yankun has displayed wire metal product lines at household goods, factory expo, cross-border ecommerce, Canton Fair and hardware trade channels.", 160),
+    ("about_cta", "About", "底部联系", "", "Want to review factory capability for your product line?", "Send the product category and market requirements, and the team will align samples, documents and timeline.", 170),
+
+    ("products_hero", "产品页", "首屏", "", "Wire metal product lines for repeatable B2B sourcing.", "Browse Yankun's six PDF catalog categories, compare buyer-fit details and open model-level product cards before sending a structured inquiry.", 210),
+    ("products_directory", "产品页", "分类目录", "Product Directory", "Choose a category, then browse that category as product cards.", "Category cards jump directly to the matching product list. Each product card uses the SQLite database and PDF-derived product imagery.", 220),
+    ("products_catalog", "产品页", "分类产品列表", "Category Product List", "Browse real Yankun catalog products as image cards.", "The product cards below are built from the SQLite catalog database. Use filters, search and pagination to shortlist exact models before opening a detail page or sending an RFQ.", 230),
+    ("products_model_index", "产品页", "技术型号索引", "Technical Model Index", "Technical Model Index", "The card list above is the primary category view. The table below keeps a compact purchasing index for quick comparison.", 240),
+    ("products_cta", "产品页", "底部询盘", "", "Need a product sheet with dimensions and cartons?", "Send target market, quantity and finish preference. Yankun will align samples, pricing and packaging options.", 250),
+
+    ("product_detail_hero", "产品详情", "首屏", "SQLite Catalog Product", "{display_name}", "{model} is a real model from the Yankun Metal PDF catalog under {category_name}. Extracted catalog data: {dimensions}, {weight}, {source_page}.", 300),
+    ("product_detail_positioning", "产品详情", "产品定位", "Product Positioning", "{category_name} model data prepared for importer comparison.", "{model} belongs to {model_range}. Buyers can compare the PDF dimensions and weight against target retail use, then confirm finish, packaging, carton data and MOQ with the factory.", 310),
+    ("product_detail_customization", "产品详情", "定制菜单", "Customization Menu", "Define the product by usage, not only by size.", "The best RFQs include target use, expected retail price band, package style and compliance concerns. That allows the factory to balance material, finish and carton cost.", 320),
+    ("product_detail_quality", "产品详情", "质检重点", "Quality Control Points", "Inspection focuses on the details that affect buyer returns.", "Dimension consistency, weld quality, coating coverage, edge treatment and packaging integrity are reviewed around the approved sample.", 330),
+    ("product_detail_related", "产品详情", "相关型号", "Related PDF Models", "Continue comparing nearby models from the same catalog series.", "These related products are pulled from the same SQLite category, so buyers can compare dimensions and weight before asking for a sample set.", 340),
+    ("product_detail_cta", "产品详情", "底部询盘", "", "Ready to quote {model}?", "Send target quantity, finish, packaging preference and destination market for factory review.", 350),
+
+    ("inquiry_hero", "询盘页", "首屏", "", "Send a product requirement that a factory can quote clearly.", "Include target product, quantity, finish, packaging and destination market. Yankun will use the details to align sample review, pricing and production timeline.", 410),
+    ("inquiry_resources", "询盘页", "买家资料", "Buyer Resources", "Documents and context that help before the first quote.", "Use these resources to align product category, factory capability and expected buying process before contacting Yankun.", 420),
+    ("inquiry_next_steps", "询盘页", "后续流程", "What Happens Next", "A practical path from inquiry to shipment.", "Yankun's communication path is designed for B2B buyers who need clarity on price, sample timeline and export readiness.", 430),
+
+    ("articles_hero", "文章列表", "首屏", "", "Practical sourcing notes for wire metal product buyers.", "Articles for importers, private labels and ecommerce sellers who need better questions before asking for price.", 510),
+    ("articles_latest", "文章列表", "最新文章", "Latest Articles", "Designed around decisions buyers actually make.", "The article section is database-backed, so the admin can update article titles, categories, content and cover images.", 520),
+    ("articles_cta", "文章列表", "底部询盘", "", "Have a sourcing question about wire products?", "Send the product category and target market, and Yankun can help translate the requirement into factory terms.", 530),
+
+    ("article_detail_related", "文章详情", "相关文章", "Related Topics", "Continue preparing your sourcing brief.", "These article cards are pulled from the same SQLite CMS table used by the admin backend.", 610),
+    ("article_detail_cta", "文章详情", "底部询盘", "", "Have a basket project ready for quotation?", "Send photos, quantity, finish and packaging plan to start a practical factory discussion.", 620),
+
+    ("cart_hero", "批量询盘", "首屏", "", "Multi-product inquiry form for batch factory quotation.", "Add several catalog models, confirm target quantities and prepare a single structured email inquiry for faster quotation feedback.", 710),
+    ("cart_empty", "批量询盘", "空状态", "Multi-Product RFQ Form", "No products have been selected yet.", "Open product detail pages and add the SKUs you want to compare before sending a batch RFQ.", 720),
+    ("cart_selected", "批量询盘", "已选产品", "Multi-Product RFQ Form", "{count} selected models prepared for one batch RFQ.", "Confirm quantities, remove unwanted models and prepare one email inquiry with product model, dimensions, weight and product links included automatically.", 730),
 ]
 
 
@@ -201,8 +262,22 @@ def main() -> None:
           created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
         );
 
+        CREATE TABLE IF NOT EXISTS section_content (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          content_key TEXT NOT NULL UNIQUE,
+          page_name TEXT NOT NULL DEFAULT '',
+          section_name TEXT NOT NULL DEFAULT '',
+          eyebrow TEXT NOT NULL DEFAULT '',
+          title TEXT NOT NULL DEFAULT '',
+          intro TEXT NOT NULL DEFAULT '',
+          default_title TEXT NOT NULL DEFAULT '',
+          default_intro TEXT NOT NULL DEFAULT '',
+          sort_order INTEGER NOT NULL DEFAULT 0
+        );
+
         CREATE INDEX IF NOT EXISTS idx_products_sort ON products(sort_order, model_number);
         CREATE INDEX IF NOT EXISTS idx_posts_published ON posts(published, date);
+        CREATE INDEX IF NOT EXISTS idx_section_content_sort ON section_content(sort_order, id);
         """
     )
 
@@ -248,6 +323,24 @@ def main() -> None:
         connection.execute(
             "INSERT OR IGNORE INTO media_library (src, alt, kind) VALUES (?, ?, ?)",
             (src, Path(src).name, kind),
+        )
+
+    for key, page_name, section_name, eyebrow, title, intro, sort_order in SECTION_CONTENT:
+        connection.execute(
+            """
+            INSERT INTO section_content (
+              content_key, page_name, section_name, eyebrow, title, intro,
+              default_title, default_intro, sort_order
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(content_key) DO UPDATE SET
+              page_name = excluded.page_name,
+              section_name = excluded.section_name,
+              sort_order = excluded.sort_order,
+              default_title = excluded.default_title,
+              default_intro = excluded.default_intro
+            """,
+            (key, page_name, section_name, eyebrow, title, intro, title, intro, sort_order),
         )
 
     connection.commit()

@@ -10,7 +10,7 @@ const navItems = [
   { href: "/products", label: "Products", match: "/products" },
   { href: "/about", label: "About", match: "/about" },
   { href: "/articles", label: "Articles", match: "/articles" },
-  { href: "/cart", label: "Cart", match: "/cart" },
+  { href: "/cart", label: "Multi-Product RFQ", match: "/cart" },
   { href: "/inquiry", label: "Inquiry", match: "/inquiry" }
 ];
 

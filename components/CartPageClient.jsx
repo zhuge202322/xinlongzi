@@ -6,6 +6,13 @@ import { cartQuantity, clearCart, readCart, removeCartItem, updateCartItemQuanti
 
 const salesEmail = "will526394@gmail.com";
 
+function formatCopy(text, values = {}) {
+  return String(text || "").replace(/\{([a-zA-Z0-9_]+)\}/g, (match, key) => {
+    const value = values[key];
+    return value === undefined || value === null ? match : String(value);
+  });
+}
+
 function productUrl(model) {
   if (typeof window === "undefined") return `/products/${model}`;
   return `${window.location.origin}/products/${model}`;
@@ -36,7 +43,7 @@ function buildMailBody(items, form) {
   return lines.join("\n");
 }
 
-export default function CartPageClient() {
+export default function CartPageClient({ emptyCopy = {}, selectedCopy = {} }) {
   const [items, setItems] = useState([]);
   const [status, setStatus] = useState("");
 
@@ -84,9 +91,9 @@ export default function CartPageClient() {
     return (
       <section className="section cart-section">
         <div className="cart-empty">
-          <div className="section-label">Inquiry Cart</div>
-          <h2>No products have been added yet.</h2>
-          <p>Open product detail pages and add the SKUs you want to compare before sending a batch RFQ.</p>
+          <div className="section-label">{emptyCopy.eyebrow || "Multi-Product RFQ Form"}</div>
+          <h2>{emptyCopy.title || "No products have been selected yet."}</h2>
+          <p>{emptyCopy.intro || "Open product detail pages and add the SKUs you want to compare before sending a batch RFQ."}</p>
           <Link className="button-dark" href="/products">
             Browse Products
           </Link>
@@ -99,13 +106,10 @@ export default function CartPageClient() {
     <section className="section cart-section">
       <div className="section-head">
         <div>
-          <div className="section-label">Inquiry Cart</div>
-          <h2>{items.length} selected models prepared for one batch RFQ.</h2>
+          <div className="section-label">{selectedCopy.eyebrow || "Multi-Product RFQ Form"}</div>
+          <h2>{formatCopy(selectedCopy.title || "{count} selected models prepared for one batch RFQ.", { count: items.length })}</h2>
         </div>
-        <p>
-          Confirm quantities, remove unwanted models and prepare one email inquiry with product model, dimensions, weight and
-          product links included automatically.
-        </p>
+        <p>{formatCopy(selectedCopy.intro || "Confirm quantities, remove unwanted models and prepare one email inquiry with product model, dimensions, weight and product links included automatically.", { count: items.length })}</p>
       </div>
 
       <div className="cart-layout">
@@ -185,7 +189,7 @@ export default function CartPageClient() {
             </label>
             <button type="submit">Prepare Batch Inquiry</button>
             <button type="button" className="cart-clear" onClick={clear}>
-              Clear Cart
+              Clear Form
             </button>
             {status ? <p className="form-status">{status}</p> : null}
           </form>

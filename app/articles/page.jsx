@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getPosts, getSiteMediaValue } from "../../lib/catalog";
+import { getPosts, getSectionCopy, getSiteMediaValue } from "../../lib/catalog";
 
 export const metadata = {
   title: "Articles",
@@ -11,6 +11,9 @@ export const dynamic = "force-dynamic";
 export default function ArticlesPage() {
   const posts = getPosts();
   const heroImage = getSiteMediaValue("articles_page_hero", "/assets/gallery/shenzhen-cross-border.jpg");
+  const heroCopy = getSectionCopy("articles_hero");
+  const latestCopy = getSectionCopy("articles_latest");
+  const ctaCopy = getSectionCopy("articles_cta");
 
   return (
     <main>
@@ -21,8 +24,8 @@ export default function ArticlesPage() {
             <span>/</span>
             <span>Articles</span>
           </nav>
-          <h1>Practical sourcing notes for wire metal product buyers.</h1>
-          <p>Articles for importers, private labels and ecommerce sellers who need better questions before asking for price.</p>
+          <h1>{heroCopy.title}</h1>
+          <p>{heroCopy.intro}</p>
         </div>
         <div className="page-hero-card">
           <span>Knowledge center</span>
@@ -34,12 +37,10 @@ export default function ArticlesPage() {
       <section className="section">
         <div className="section-head reveal">
           <div>
-            <div className="section-label">Latest Articles</div>
-            <h2>Designed around decisions buyers actually make.</h2>
+            <div className="section-label">{latestCopy.eyebrow}</div>
+            <h2>{latestCopy.title}</h2>
           </div>
-          <p>
-            The article section is now database-backed, so the admin can update article titles, categories, content and cover images.
-          </p>
+          <p>{latestCopy.intro}</p>
         </div>
 
         <div className="article-grid">
@@ -61,8 +62,8 @@ export default function ArticlesPage() {
 
       <section className="cta-band">
         <div>
-          <h2>Have a sourcing question about wire products?</h2>
-          <p>Send the product category and target market, and Yankun can help translate the requirement into factory terms.</p>
+          <h2>{ctaCopy.title}</h2>
+          <p>{ctaCopy.intro}</p>
         </div>
         <Link className="button-light" href="/inquiry">
           Ask Yankun

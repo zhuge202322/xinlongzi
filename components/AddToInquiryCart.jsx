@@ -22,16 +22,16 @@ export default function AddToInquiryCart({ product }) {
   function addToCart() {
     const next = addCartItem(product);
     setCount(cartQuantity(next));
-    setStatus(`${product.model} added to inquiry cart.`);
+    setStatus(`${product.model} added to multi-product RFQ form.`);
   }
 
   return (
     <div className="cart-add-control">
       <button className="button-dark cart-add-button" type="button" onClick={addToCart}>
-        Add to Inquiry Cart
+        Add to RFQ Form
       </button>
       <Link className="button-light cart-link-button" href="/cart">
-        View Cart{count ? ` (${count})` : ""}
+        View RFQ Form{count ? ` (${count})` : ""}
       </Link>
       {status ? <span>{status}</span> : null}
     </div>
