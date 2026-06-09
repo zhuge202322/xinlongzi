@@ -1,7 +1,16 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import AddToInquiryCart from "../../../components/AddToInquiryCart";
-import { formatCopy, getProduct, getRelatedProducts, getSectionCopy, getSiteMediaValue, sourceLabel } from "../../../lib/catalog";
+import ProductImageGallery from "../../../components/ProductImageGallery";
+import {
+  formatCopy,
+  getProduct,
+  getProductImages,
+  getRelatedProducts,
+  getSectionCopy,
+  getSiteMediaValue,
+  sourceLabel
+} from "../../../lib/catalog";
 
 export const dynamic = "force-dynamic";
 
@@ -21,6 +30,17 @@ export default async function ProductDetailPage({ params }) {
   const product = getProduct(routeParams.model);
   if (!product) notFound();
 
+  const productImages = getProductImages(product.model);
+  const galleryImages = productImages.length
+    ? productImages
+    : [
+        {
+          src: product.image,
+          alt: `${product.display_name} ${product.model} product image`,
+          sort_order: 1,
+          is_primary: 1
+        }
+      ];
   const related = getRelatedProducts(product.model, product.category_slug, 4);
   const catalogHref = getSiteMediaValue("catalog_pdf", "/assets/downloads/yankun-metal-catalog.pdf");
   const copyValues = {
@@ -42,9 +62,7 @@ export default async function ProductDetailPage({ params }) {
   return (
     <main>
       <section className="detail-hero">
-        <div className="detail-media">
-          <img src={product.image} alt={`${product.display_name} catalog image`} />
-        </div>
+        <ProductImageGallery images={galleryImages} product={product} />
         <div className="detail-summary">
           <nav className="breadcrumb" aria-label="Breadcrumb">
             <Link href="/">Home</Link>
@@ -81,6 +99,33 @@ export default async function ProductDetailPage({ params }) {
               Download Catalog
             </a>
           </div>
+        </div>
+      </section>
+
+      <section className="section product-gallery-section">
+        <div className="section-head reveal">
+          <div>
+            <div className="section-label">Archive Image Set</div>
+            <h2>{product.model} complete product photos from the ZIP archive.</h2>
+          </div>
+          <p>
+            This section displays every matched product photo imported from the latest archive, including the selected main image
+            and all detail or usage-scene images.
+          </p>
+        </div>
+        <div className="product-image-gallery">
+          {galleryImages.map((image, index) => (
+            <a href={image.src} target="_blank" rel="noreferrer" className="product-gallery-item" key={image.src}>
+              <img src={image.src} alt={image.alt || `${product.display_name} product image ${index + 1}`} loading="lazy" />
+              <span>{image.is_primary ? "Main product image" : `Detail image ${String(index + 1).padStart(2, "0")}`}</span>
+              {image.source_file || image.width ? (
+                <small>
+                  {image.source_file ? image.source_file.split("/").pop() : ""}
+                  {image.width && image.height ? ` · ${image.width}x${image.height}px` : ""}
+                </small>
+              ) : null}
+            </a>
+          ))}
         </div>
       </section>
 

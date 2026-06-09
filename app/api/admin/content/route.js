@@ -4,11 +4,13 @@ import {
   deleteHeroSlide,
   deletePost,
   deleteProduct,
+  deleteProductImage,
   getAdminContent,
   saveCategory,
   saveHeroSlide,
   savePost,
   saveProduct,
+  saveProductImage,
   saveSectionContent,
   saveSiteMedia
 } from "../../../../lib/cms-admin";
@@ -24,6 +26,7 @@ function requireAdmin(request) {
 
 function saveResource(resource, data) {
   if (resource === "products") return saveProduct(data);
+  if (resource === "productImages") return saveProductImage(data);
   if (resource === "categories") return saveCategory(data);
   if (resource === "posts") return savePost(data);
   if (resource === "heroSlides") return saveHeroSlide(data);
@@ -34,6 +37,7 @@ function saveResource(resource, data) {
 
 function deleteResource(resource, id) {
   if (resource === "products") return deleteProduct(id);
+  if (resource === "productImages") return deleteProductImage(id);
   if (resource === "posts") return deletePost(id);
   if (resource === "heroSlides") return deleteHeroSlide(id);
   throw new Error("当前数据类型不支持删除");

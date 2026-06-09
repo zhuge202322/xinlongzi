@@ -232,6 +232,12 @@ export default function AdminDashboard() {
     if (!needle) return list;
     return list.filter((item) => JSON.stringify(item).toLowerCase().includes(needle));
   }, [list, query]);
+  const selectedProductImages = useMemo(() => {
+    if (tab !== "products" || !draft?.model) return [];
+    return (content?.productImages || [])
+      .filter((image) => String(image.product_model).toUpperCase() === String(draft.model).toUpperCase())
+      .sort((a, b) => Number(a.sort_order || 0) - Number(b.sort_order || 0) || Number(a.id || 0) - Number(b.id || 0));
+  }, [content?.productImages, draft?.model, tab]);
 
   function select(nextTab, item = null) {
     setTab(nextTab);
@@ -309,6 +315,60 @@ export default function AdminDashboard() {
       }));
     }
     setStatus(`已上传：${payload.url}`);
+    return payload;
+  }
+
+  function refreshContentAfter(payload) {
+    setContent(payload.content);
+    if (tab === "products" && draft?.id) {
+      const nextProduct = payload.content.products?.find((item) => item.id === draft.id);
+      if (nextProduct) setDraft(nextProduct);
+    }
+  }
+
+  function updateProductImage(id, key, value) {
+    setContent((current) => ({
+      ...current,
+      productImages: (current?.productImages || []).map((image) => (image.id === id ? { ...image, [key]: value } : image))
+    }));
+  }
+
+  async function saveProductImage(image) {
+    setBusy(true);
+    setStatus("");
+    const response = await fetch("/api/admin/content", {
+      method: image.id ? "PATCH" : "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ resource: "productImages", data: image })
+    });
+    const payload = await response.json();
+    setBusy(false);
+    if (!response.ok) {
+      setStatus(payload.error || "保存产品图片失败");
+      return false;
+    }
+    refreshContentAfter(payload);
+    setStatus("产品图片已保存");
+    return true;
+  }
+
+  async function removeProductImage(image) {
+    if (!image?.id || !confirm("确定删除这张产品图片吗？")) return;
+    setBusy(true);
+    setStatus("");
+    const response = await fetch("/api/admin/content", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ resource: "productImages", id: image.id })
+    });
+    const payload = await response.json();
+    setBusy(false);
+    if (!response.ok) {
+      setStatus(payload.error || "删除产品图片失败");
+      return;
+    }
+    refreshContentAfter(payload);
+    setStatus("产品图片已删除");
   }
 
   async function logout() {
@@ -405,6 +465,17 @@ export default function AdminDashboard() {
                     onUpload={upload}
                   />
                 ))}
+                {tab === "products" ? (
+                  <ProductImagesPanel
+                    product={draft}
+                    images={selectedProductImages}
+                    busy={busy}
+                    onChange={updateProductImage}
+                    onSave={saveProductImage}
+                    onDelete={removeProductImage}
+                    onUpload={upload}
+                  />
+                ) : null}
               </>
             ) : (
               <p className="admin-empty">请选择一条内容进行编辑。</p>
@@ -498,6 +569,164 @@ function Field({ fieldKey, label, type, value, kind, categories, onChange, onUpl
         onChange={(event) => onChange(fieldKey, type === "number" ? Number(event.target.value) : event.target.value)}
       />
     </label>
+  );
+}
+
+function ProductImagesPanel({ product, images, busy, onChange, onSave, onDelete, onUpload }) {
+  const [newImage, setNewImage] = useState({
+    src: "",
+    alt: "",
+    sort_order: images.length + 1,
+    is_primary: images.length ? 0 : 1
+  });
+
+  useEffect(() => {
+    setNewImage({
+      src: "",
+      alt: "",
+      sort_order: images.length + 1,
+      is_primary: images.length ? 0 : 1
+    });
+  }, [product?.model, images.length]);
+
+  async function uploadNew(file) {
+    const payload = await onUpload("unused", file);
+    if (payload?.url) setNewImage((current) => ({ ...current, src: payload.url }));
+  }
+
+  async function createImage() {
+    const ok = await onSave({
+      ...newImage,
+      product_model: product.model,
+      alt: newImage.alt || `${product.display_name} ${product.model} product image`,
+      source_file: newImage.source_file || "后台上传"
+    });
+    if (ok) {
+      setNewImage({
+        src: "",
+        alt: "",
+        sort_order: images.length + 2,
+        is_primary: 0
+      });
+    }
+  }
+
+  if (!product?.model) return null;
+
+  return (
+    <section className="admin-product-images">
+      <div className="admin-editor-head">
+        <h2>产品图片组</h2>
+        <p>
+          当前型号共有 {images.length} 张图片。主图会同步到产品主图字段，其他图片会显示在产品详情页图库中。
+        </p>
+      </div>
+
+      {images.length ? (
+        <div className="admin-product-image-grid">
+          {images.map((image, index) => (
+            <article className={image.is_primary ? "primary" : ""} key={image.id}>
+              <img src={image.src} alt={image.alt || `${product.model} product image ${index + 1}`} />
+              <div className="admin-product-image-fields">
+                <label>
+                  <span>图片地址</span>
+                  <input value={image.src || ""} onChange={(event) => onChange(image.id, "src", event.target.value)} />
+                </label>
+                <label>
+                  <span>图片说明</span>
+                  <input value={image.alt || ""} onChange={(event) => onChange(image.id, "alt", event.target.value)} />
+                </label>
+                <div className="admin-product-image-row">
+                  <label>
+                    <span>排序</span>
+                    <input
+                      type="number"
+                      value={image.sort_order ?? 0}
+                      onChange={(event) => onChange(image.id, "sort_order", Number(event.target.value))}
+                    />
+                  </label>
+                  <label className="admin-mini-check">
+                    <input
+                      type="checkbox"
+                      checked={!!image.is_primary}
+                      onChange={(event) => onChange(image.id, "is_primary", event.target.checked ? 1 : 0)}
+                    />
+                    <span>主图</span>
+                  </label>
+                </div>
+                <dl>
+                  <div>
+                    <dt>压缩包文件</dt>
+                    <dd>{image.source_file || "后台上传"}</dd>
+                  </div>
+                  <div>
+                    <dt>原图尺寸</dt>
+                    <dd>{image.width && image.height ? `${image.width}x${image.height}px` : "未记录"}</dd>
+                  </div>
+                  <div>
+                    <dt>原文件大小</dt>
+                    <dd>{image.file_size ? `${Math.round(Number(image.file_size) / 1024)} KB` : "未记录"}</dd>
+                  </div>
+                </dl>
+              </div>
+              <div className="admin-product-image-actions">
+                <button type="button" onClick={() => onSave(image)} disabled={busy}>
+                  保存图片
+                </button>
+                {!image.is_primary ? (
+                  <button type="button" onClick={() => onSave({ ...image, is_primary: 1 })} disabled={busy}>
+                    设为主图
+                  </button>
+                ) : null}
+                <button type="button" className="danger" onClick={() => onDelete(image)} disabled={busy}>
+                  删除
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p className="admin-empty">这个型号还没有图片。可以从下方新增图片。</p>
+      )}
+
+      <div className="admin-product-image-new">
+        <strong>新增产品图片</strong>
+        <div>
+          <input
+            value={newImage.src}
+            onChange={(event) => setNewImage((current) => ({ ...current, src: event.target.value }))}
+            placeholder="/assets/catalog/product-gallery/..."
+          />
+          <input type="file" accept="image/*" onChange={(event) => uploadNew(event.target.files?.[0])} />
+        </div>
+        <input
+          value={newImage.alt}
+          onChange={(event) => setNewImage((current) => ({ ...current, alt: event.target.value }))}
+          placeholder="图片说明"
+        />
+        <div>
+          <label>
+            <span>排序</span>
+            <input
+              type="number"
+              value={newImage.sort_order}
+              onChange={(event) => setNewImage((current) => ({ ...current, sort_order: Number(event.target.value) }))}
+            />
+          </label>
+          <label className="admin-mini-check">
+            <input
+              type="checkbox"
+              checked={!!newImage.is_primary}
+              onChange={(event) => setNewImage((current) => ({ ...current, is_primary: event.target.checked ? 1 : 0 }))}
+            />
+            <span>设为主图</span>
+          </label>
+          <button type="button" onClick={createImage} disabled={busy || !newImage.src}>
+            添加图片
+          </button>
+        </div>
+      </div>
+    </section>
   );
 }
 
