@@ -81,7 +81,7 @@ def primary_score(record):
 
 
 def choose_primary(records):
-    return max(records, key=lambda record: (primary_score(record), -record["suffix"], -record["file_size"]))
+    return sorted(records, key=lambda record: (record["suffix"], record["path"].lower()))[0]
 
 
 def save_web_jpg(zip_file, source_path, target_path, max_size=1600, quality=86):
